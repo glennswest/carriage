@@ -35,7 +35,7 @@ belt_z = 7;
 module carriage()
 {
 
-	clearance = 0.125;
+	clearance = 0.122;
 
 	// timing belt, up and down
 	for (x = [-belt_x, belt_x])
@@ -50,25 +50,9 @@ module carriage()
 		{
 			// main body
 			translate([0, 0, thickness / 2 + 2])
-				cube([27, 38, thickness], center = true);
+				cube([18, 38, thickness], center = true);
 
-			// ball joint mount horns
-			translate([0, -16, 8])
-				for (x = [-1, 1])
-				{
-					scale([x, 1, 1])
-					{
-						intersection()
-						{
-							translate([0, 16, horn_thickness / 2])
-								cube([separation, 20, horn_thickness+10], center = true);
-							translate([horn_x, 16, horn_thickness / 2 + 5])
-								rotate([0, 90, 0])
-									cylinder(r1 = 20, r2 = 2.5, h = separation / 2 - horn_x);
-						}
-					}
-				}
-
+			
 
 
 			// belt clamps for GT2
@@ -81,9 +65,9 @@ module carriage()
 						union()
 						{
 							translate([-0.5 - clearance * 2, y, horn_thickness / 2 + 1])
-								cube([1, 14, horn_thickness - 2], center = true);
+								cube([2, 14, horn_thickness - 2], center = true);
 							translate([-1 - clearance * 2, y, horn_thickness / 2 + 1])
-								cube([2, 12, horn_thickness - 2], center = true);
+								cube([2.5, 12, horn_thickness - 2], center = true);
 							for (n = [-6, 6])
 								translate([-1 - clearance * 2, y + n, horn_thickness / 2 + 1])
 									cylinder(r = 1, h = horn_thickness - 2, center = true, $fn = 16);
@@ -92,7 +76,7 @@ module carriage()
 								cube([5, 14, horn_thickness - 2], center = true);
 
 							translate([7.5, y, horn_thickness / 2 + 1])
-								cube([2, 14, horn_thickness - 2], center = true);
+								cube([3, 14, horn_thickness - 2], center = true);
 						}
 					}
 				}
@@ -117,26 +101,10 @@ module carriage()
 
 		}
 
-		// screws for ball joints
-		translate([0, 0, (horn_thickness / 2)+13])
-			rotate([0, 90, 0])
-				# cylinder(r = m3_wide_radius, h = 60, center = true, $fn = 12);
-
-		// lock nuts for ball joints
-		for (x = [-1, 1])
-		{
-			scale([x, 1, 1])
-			{
-				intersection()
-				{
-					translate([horn_x, 0, (horn_thickness / 2)+13])
-						rotate([90, 0, -90])
-							cylinder(r1 = m3_nut_radius, r2 = m3_nut_radius + 0.5, h = 8, center = true, $fn = 6);
-				}
-			}
-		}
-
+		
 
 	}
 
 }
+
+carriage();
